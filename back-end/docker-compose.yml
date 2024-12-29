@@ -1,0 +1,25 @@
+services:
+  # Dev container
+  backend:
+    build:
+      context: .
+      target: base # From Dockerfile
+    volumes:
+      - ./src:/app/src
+      - ./nodemon.json:/app/nodemon.json
+    expose:
+      - '8000'
+    ports:
+      -  '8000:8000'
+    command: npm run dev
+
+  # Prod container
+  backend-prod:
+    build:
+      target: prod # From Dockerfile
+    command: node build/index.js
+
+  prettier:
+    build:
+      context: .
+    command: npm run prettier
