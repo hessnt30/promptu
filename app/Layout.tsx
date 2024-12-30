@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useColorScheme } from "react-native";
+import { useColorScheme, View, Image, Text, StyleSheet } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -12,7 +12,48 @@ import ShopScreen from "./screens/ShopScreen";
 const Tab = createBottomTabNavigator();
 
 const Layout = () => {
-  const colorScheme = useColorScheme(); // Get the current color scheme
+  const colorScheme = useColorScheme();
+
+  // example user data, ya boy adrian
+  const user = {
+    profilePicture:
+      "https://media.licdn.com/dms/image/v2/D5603AQHelTzhtDz-9Q/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1684888144282?e=1741219200&v=beta&t=MLvGpLmEpjs_LPJhRR2EEGl5IfEFhpefBKwdlSIEw3s",
+    // profilePicture: null, (use this to test initials)
+    name: "Adrian Shirazi",
+  };
+
+  // grab first letter of first and last name for intitials
+  // in case users profile pic isn't working
+  const getUserInitials = (name: string) => {
+    const [firstName, lastName] = name.split(" ");
+    return `${firstName[0]}${lastName ? lastName[0] : ""}`.toUpperCase();
+  };
+
+  // component for profile icon in tab bar
+  const ProfileTabIcon = () => {
+    return user.profilePicture ? (
+      <Image
+        source={{ uri: user.profilePicture }}
+        style={styles.profileImage}
+      />
+    ) : (
+      <View
+        style={[
+          styles.initialsContainer,
+          { backgroundColor: colorScheme === "dark" ? "#555" : "#ddd" },
+        ]}
+      >
+        <Text
+          style={[
+            styles.initialsText,
+            { color: colorScheme === "dark" ? "#fff" : "#000" },
+          ]}
+        >
+          {getUserInitials(user.name)}
+        </Text>
+      </View>
+    );
+  };
 
   return (
     <NavigationContainer>
@@ -106,24 +147,37 @@ const Layout = () => {
           name="Profile"
           component={ProfileScreen}
           options={{
-            headerTitleStyle: {
-              display: "none",
-            },
+            headerTitleStyle: { display: "none" },
             headerStyle: {
               backgroundColor: colorScheme === "dark" ? "#333" : "#fff",
             },
-            tabBarIcon: () => (
-              <Icon
-                name={"account"}
-                color={colorScheme === "dark" ? "#fff" : "#000"}
-                size={32}
-              />
-            ),
+            tabBarIcon: ProfileTabIcon,
           }}
         />
       </Tab.Navigator>
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  profileImage: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    marginTop: "25%", // TODO, fix this (quick fix to center profile pic)
+  },
+  initialsContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "25%", // TODO, fix this (quick fix to center profile pic)
+  },
+  initialsText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+});
 
 export default Layout;
