@@ -23,13 +23,19 @@ const Layout = () => {
           },
           tabBarActiveTintColor: colorScheme === "dark" ? "#fff" : "#000",
           tabBarInactiveTintColor: colorScheme === "dark" ? "#aaa" : "#555",
-          tabBarLabelStyle: { display: "none" }, // Hide labels
+          tabBarLabelStyle: { display: "none" },
         }}
       >
         <Tab.Screen
           name="Home"
           component={HomeScreen}
           options={{
+            headerTitle: "PromptU",
+            headerTitleAlign: "left",
+            headerStyle: {
+              backgroundColor: colorScheme === "dark" ? "#333" : "#fff",
+            },
+            headerTintColor: colorScheme === "dark" ? "#fff" : "#000",
             tabBarIcon: () => (
               <Icon
                 name={"home"}
@@ -43,6 +49,12 @@ const Layout = () => {
           name="Search"
           component={SearchScreen}
           options={{
+            headerTitleStyle: {
+              display: "none",
+            },
+            headerStyle: {
+              backgroundColor: colorScheme === "dark" ? "#333" : "#fff",
+            },
             tabBarIcon: () => (
               <Icon
                 name={"magnify"}
@@ -56,6 +68,12 @@ const Layout = () => {
           name="Create"
           component={CreateScreen}
           options={{
+            headerTitle: "Complete your Prompt",
+            headerTitleAlign: "left",
+            headerStyle: {
+              backgroundColor: colorScheme === "dark" ? "#333" : "#fff",
+            },
+            headerTintColor: colorScheme === "dark" ? "#fff" : "#000",
             tabBarIcon: () => (
               <Icon
                 name={"plus"}
@@ -69,9 +87,15 @@ const Layout = () => {
           name="Shop"
           component={ShopScreen}
           options={{
+            headerTitle: "Communities",
+            headerTitleAlign: "left",
+            headerStyle: {
+              backgroundColor: colorScheme === "dark" ? "#333" : "#fff",
+            },
+            headerTintColor: colorScheme === "dark" ? "#fff" : "#000",
             tabBarIcon: () => (
               <Icon
-                name={"bitcoin"}
+                name={"account-group"}
                 color={colorScheme === "dark" ? "#fff" : "#000"}
                 size={32}
               />
@@ -82,6 +106,12 @@ const Layout = () => {
           name="Profile"
           component={ProfileScreen}
           options={{
+            headerTitleStyle: {
+              display: "none",
+            },
+            headerStyle: {
+              backgroundColor: colorScheme === "dark" ? "#333" : "#fff",
+            },
             tabBarIcon: () => (
               <Icon
                 name={"account"}
