@@ -16,6 +16,7 @@
     "@react-navigation/native-stack": "^7.2.0",
     "@react-navigation/stack": "^7.1.1",
     "@stripe/stripe-react-native": "0.45.0",
+    "@types/react-native-sqlite-storage": "^6.0.5",
     "@types/react-navigation": "^3.4.0",
     "expo": "^53.0.11",
     "expo-auth-session": "~6.2.0",
@@ -32,6 +33,7 @@
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
     "react-native-search-bar": "^3.5.1",
+    "react-native-sqlite-storage": "^6.0.1",
     "react-native-vector-icons": "^10.2.0"
   },
   "devDependencies": {
