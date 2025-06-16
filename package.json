@@ -34,7 +34,9 @@
     "react-native-screens": "~4.11.1",
     "react-native-search-bar": "^3.5.1",
     "react-native-sqlite-storage": "^6.0.1",
-    "react-native-vector-icons": "^10.2.0"
+    "react-native-vector-icons": "^10.2.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
