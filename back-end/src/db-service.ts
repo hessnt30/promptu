@@ -40,3 +40,34 @@ export const getPrompts = async (
     throw new Error('Failed to retrieve prompts');
   }
 };
+
+export const savePrompts = async (db: SQLiteDatabase, prompts: Prompt[]) => {
+  const insertQuery = `INSERT INTO prompts (text, category) VALUES (?, ?)`;
+
+  try {
+    for (const prompt of prompts) {
+      await db.executeSql(insertQuery, [prompt.text, prompt.category]);
+    }
+  } catch (error) {
+    console.error('Error saving prompts:', error);
+    throw new Error('Failed to save prompts');
+  }
+};
+
+export const deletePrompt = async (db: SQLiteDatabase, id: number) => {
+  try {
+    await db.executeSql(`DELETE FROM prompts WHERE id = ?`, [id]);
+  } catch (error) {
+    console.error('Error deleting prompt:', error);
+    throw new Error('Failed to delete prompt');
+  }
+};
+
+export const deletePromptTable = async (db: SQLiteDatabase) => {
+  try {
+    await db.executeSql(`DROP TABLE IF EXISTS prompts`);
+  } catch (error) {
+    console.error('Error dropping prompts table:', error);
+    throw new Error('Failed to drop prompts table');
+  }
+};
