@@ -29,9 +29,16 @@ export default function Auth() {
       password: password,
     });
 
+    // create UserData row entry
+    if (session && session.user) {
+      const { error: insertError } = await supabase
+        .from("UserData")
+        .insert([{ user_id: session.user.id }]);
+      if (insertError) Alert.alert(insertError.message);
+      // console.log("we are here")
+    }
+
     if (error) Alert.alert(error.message);
-    if (!session)
-      Alert.alert("Please check your inbox for email verification!");
     setLoading(false);
   }
 
