@@ -8,6 +8,7 @@ import { Alert, Text, StyleSheet, View } from "react-native";
 export default function OnBoardingPage() {
   const [session, setSession] = useState<Session | null>(null);
   const [username, setUsername] = useState("");
+  const [fullName, setFullName] = useState("");
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -26,42 +27,35 @@ export default function OnBoardingPage() {
     });
   }, []);
 
-  async function updateUsername() {
+  async function updateNames() {
     if (!session?.user) {
       Alert.alert("Not signed in");
       return;
     }
 
     const userId = session.user.id;
-    const name = username.trim();
-    if (!name) {
+    const trimmedUsername = username.trim();
+    const trimmedFullName = fullName.trim();
+
+    if (!trimmedUsername) {
       Alert.alert("Please enter a username");
       return;
+    }
+
+    if (!trimmedFullName) {
+      Alert.alert("Please enter your name");
     }
     setLoading(true);
 
     try {
       const { data: updated, error: updateErr } = await supabase
         .from("UserData")
-        .update({ username: name })
+        .update({ username: trimmedUsername, full_name: trimmedFullName })
         .eq("user_id", userId)
         .select("user_id")
         .maybeSingle();
 
-      if (updateErr) throw updateErr;
-
-      if (!updated) {
-        const { error: upsertErr } = await supabase
-          .from("UserData")
-          .upsert(
-            { user_id: userId, username: name },
-            { onConflict: "user_id" }
-          )
-          .select("user_id")
-          .maybeSingle();
-
-        if (upsertErr) Alert.alert(upsertErr.message);
-      }
+      if (updateErr) Alert.alert(updateErr.message);
 
       router.replace("/home");
     } catch (e: any) {
@@ -84,12 +78,18 @@ export default function OnBoardingPage() {
           autoCapitalize={"none"}
         />
       </View>
-      <View style={styles.verticallySpaced}>
-        <Button
-          title="Next"
-          disabled={loading}
-          onPress={() => updateUsername()}
+      <View style={[styles.verticallySpaced, styles.mt20]}>
+        <Input
+          label="Name"
+          //   leftIcon={{ type: "font-awesome", name: "envelope" }}
+          onChangeText={(text) => setFullName(text)}
+          value={fullName}
+          placeholder="name"
+          autoCapitalize={"words"}
         />
+      </View>
+      <View style={styles.verticallySpaced}>
+        <Button title="Next" disabled={loading} onPress={() => updateNames()} />
       </View>
     </View>
   );

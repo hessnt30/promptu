@@ -33,7 +33,7 @@ export default function Auth() {
     if (session && session.user) {
       const { error: insertError } = await supabase
         .from("UserData")
-        .insert([{ user_id: session.user.id }]);
+        .insert([{ user_id: session.user.id, email: session.user.email }]);
       if (insertError) Alert.alert(insertError.message);
       // console.log("we are here")
     }
