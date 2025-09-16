@@ -7,6 +7,7 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { Button } from "@rneui/themed";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -31,6 +32,11 @@ export default function TabLayout() {
         name="home"
         options={{
           //   title: "Home",
+          headerTitle: "Home Screen", // Set a specific title for this tab's header
+          headerRight: () => (
+            // Add custom components to the right of the header
+            <Button onPress={() => alert("Info!")} title="Info" color="#fff" />
+          ),
           tabBarShowLabel: false,
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="house" color={color} />
