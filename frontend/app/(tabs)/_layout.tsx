@@ -16,7 +16,6 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
@@ -31,12 +30,14 @@ export default function TabLayout() {
       <Tabs.Screen
         name="home"
         options={{
-          //   title: "Home",
-          headerTitle: "Home Screen", // Set a specific title for this tab's header
+          title: "Home",
+          headerTitle: "Home Screen",
           headerRight: () => (
-            // Add custom components to the right of the header
-            <Button onPress={() => alert("Info!")} title="Info" color="#fff" />
+            <Button buttonStyle={{ backgroundColor: "transparent" }} onPress={() => alert("Tf you searching for?")} title="Info">
+              <IconSymbol size={28} name="magnifyingglass" color={"black"} />
+            </Button>
           ),
+          headerShown: true,
           tabBarShowLabel: false,
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="house" color={color} />
@@ -46,7 +47,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="create"
         options={{
-          //   title: "Explore",
+          title: "Create",
+          headerShown: false,
           tabBarShowLabel: false,
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="plus.circle" color={color} />
@@ -57,7 +59,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          //   title: "Explore",
+          title: "Profile",
+          headerShown: false,
           tabBarShowLabel: false,
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="person.circle" color={color} />
